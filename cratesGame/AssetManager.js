@@ -13,8 +13,8 @@ class AssetManager {
     
     this.woodCrate = loadImage("data/woodcrate.png");
     this.metalCrate = loadImage("data/metalcrate.png");
-    this.plasticCrate = loadImage("data/plasticCrate.png");
-    this.glassCrate = loadImage("data/glassCrate.png");
+    this.plasticCrate = loadImage("data/plasticcrate.png");
+    this.glassCrate = loadImage("data/glasscrate.png");
     this.crateGrime = loadImage("data/crategrime.png");
     this.reinforcement = loadImage("data/reinforcement.png");
     this.flames = loadImage("data/flames.png");

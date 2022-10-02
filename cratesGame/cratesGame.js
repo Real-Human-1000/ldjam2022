@@ -13,7 +13,7 @@ let crateTimer = 1;
 
 let gridCornerX = 10;
 let gridCornerY = 10;
-let gridScreenSize = 600-2*gridCornerX;
+let gridScreenSize = 533-2*gridCornerX;
 
 let buildMode = false;
 
@@ -33,7 +33,7 @@ function setup() {
   pixelDensity(1);
   noSmooth();
   frameRate(40);
-  createCanvas(800,600);
+  createCanvas(800,533);
   grid = new Grid(8, 8);
   loadWaves();
 }
@@ -132,7 +132,7 @@ function drawMainScreen() {
     
   fill(100);
   stroke(150);
-  rect(0,0,width-200,height);
+  rect(0,0,width - (width-height),height);
   drawCrates(gridCornerX, gridCornerY, gridScreenSize / grid.w);
   grid.drawGrid(gridCornerX, gridCornerY, gridScreenSize, buildMode);
   
@@ -229,43 +229,44 @@ function drawMeter(cornerX, cornerY, sideLength, value, maxVal, title) {
 function drawSidePanel() {
   
   fill(200);
-  if (pointInBox(mouseX, mouseY, 700, 50, 100, 50)) {
+  if (pointInBox(mouseX, mouseY, 650, 50, 100, 50)) {
     fill(230);
   }
-  rect(700-50, 50-25, 100, 50);
+  rect(650-50, 50-25, 100, 50);
   fill(0);
   noStroke();
   textAlign(CENTER, CENTER);
   textSize(30);
   textFont("monospace");
   if (buildMode) {
-    text("GAME", 700, 50);
+    text("GAME", 650, 50);
   } else {
-    text("BUILD", 700, 50);
+    text("BUILD", 650, 50);
   }
   
   textAlign(CENTER, CENTER);
   textFont('monospace');
   noStroke();
   textSize(25);
-  text("Money", 700, 115);
-  text(money, 700, 145);
+  text("Money", 650, 100);
+  text(money, 650, 120);
   
+  textSize(20);
   if (grid.selectedX != -1 && grid.selectedY != -1) {
     let selectedObject = grid.grid[grid.selectedY][grid.selectedX];
-    text("(" + (grid.selectedY+1) + ", " + (grid.selectedX+1) + ")", 700, 460);
+    text("(" + (grid.selectedY+1) + ", " + (grid.selectedX+1) + ")", 650, 410);
     if (selectedObject[0] != -1) {
-      text(gridObjectNames[selectedObject[0]], 700, 500);
-      text(rotationNames[selectedObject[1]], 700, 530);
-      text(wearNames[floor((100 - selectedObject[2])/16.666666666)], 700, 560);
+      text(gridObjectNames[selectedObject[0]], 650, 440);
+      text(rotationNames[selectedObject[1]], 650, 470);
+      text(wearNames[floor((100 - selectedObject[2])/16.666666666)], 650, 500);
     } else {
-      text("None", 700, 500);
+      text("None", 650, 450);
     }
   }
   
   if (!buildMode) {
-    drawMeter(650, 185, 100, smoke, 0.9, "Smoke");  // smoke of 1 is the lose condition
-    drawMeter(650, 310, 100, crates.length, 9, "Crates");  // 10 crates is the lose condition
+    drawMeter(600, 160, 100, smoke, 0.9, "Smoke");  // smoke of 1 is the lose condition
+    drawMeter(600, 285, 100, crates.length, 9, "Crates");  // 10 crates is the lose condition
   } else {
     drawMachineButtons();
   }
@@ -274,40 +275,40 @@ function drawSidePanel() {
 
 function drawMachineButtons() {
   textAlign(CENTER, CENTER);
-  text("Machines", 700, 200);
+  text("Machines", 650, 150);
   
   // Conveyor buy button
   stroke(200);
   fill(100);
-  if (pointInBox(mouseX, mouseY, 625+150/2, 225+35/2, 150, 35)) { fill(150); }
-  rect(625, 225, 150, 35);
-  // Crusher buy button
+  if (pointInBox(mouseX, mouseY, 575+150/2, 175+35/2, 150, 35)) { fill(150); }
+  rect(575, 175, 150, 35);
+  // Press buy button
   //fill(250);
   //if (pointInBox(mouseX, mouseY, 710+65/2, 225+35/2, 65, 35)) { fill(255, 255, 240); }
   //rect(710, 225, 65, 35);
   
   // Incinerator buy button
   fill(200,100,100);
-  if (pointInBox(mouseX, mouseY, 625+65/2, 280+35/2, 65, 35)) { fill(200,150,150); }
-  rect(625, 280, 65, 35);
+  if (pointInBox(mouseX, mouseY, 575+65/2, 230+35/2, 65, 35)) { fill(200,150,150); }
+  rect(575, 230, 65, 35);
   // Acid Sprayer Buy button
   fill(100,200,100);
-  if (pointInBox(mouseX, mouseY, 710+65/2, 280+35/2, 65, 35)) { fill(150,200,150); }
-  rect(710, 280, 65, 35);
+  if (pointInBox(mouseX, mouseY, 660+65/2, 230+35/2, 65, 35)) { fill(150,200,150); }
+  rect(660, 230, 65, 35);
   
   // Rotate button
   //fill(150);
-  //if (pointInBox(mouseX, mouseY, 625+65/2, 335+35/2, 65, 35)) { fill(190); }
-  //rect(625, 335, 65, 35);
+  //if (pointInBox(mouseX, mouseY, 575+65/2, 335+35/2, 65, 35)) { fill(190); }
+  //rect(575, 335, 65, 35);
   // Repair button
   fill(150);
-  if (pointInBox(mouseX, mouseY, 625+65/2, 335+35/2, 150, 35)) { fill(190); }
-  rect(625, 335, 150, 35);
+  if (pointInBox(mouseX, mouseY, 575+65/2, 285+35/2, 150, 35)) { fill(190); }
+  rect(575, 285, 150, 35);
   
   // Remove button
   fill(50);
-  if (pointInBox(mouseX, mouseY, 625+150/2, 390+35/2, 150, 35)) { fill(100); }
-  rect(625, 390, 150, 35);
+  if (pointInBox(mouseX, mouseY, 575+150/2, 340+35/2, 150, 35)) { fill(100); }
+  rect(575, 340, 150, 35);
   
   // Button texts:
   buttonText = "";
@@ -316,33 +317,33 @@ function drawMachineButtons() {
   fill(0);
   
   buttonText = "CONVEYOR";
-  if (pointInBox(mouseX, mouseY, 625+150/2, 225+35/2, 150, 35)) { buttonText = prices[0]; }
-  text(buttonText, 625+150/2, 225+35/2);
+  if (pointInBox(mouseX, mouseY, 575+150/2, 175+35/2, 150, 35)) { buttonText = prices[0]; }
+  text(buttonText, 575+150/2, 175+35/2);
   
   //buttonText = "PRESS";
   //if (pointInBox(mouseX, mouseY, 710+65/2, 225+35/2, 65, 35)) { buttonText = prices[1]; }
   //text(buttonText, 710+65/2, 225+35/2);
   
   buttonText = "FIRE";
-  if (pointInBox(mouseX, mouseY, 625+65/2, 280+35/2, 65, 35)) { buttonText = prices[2]; }
-  text(buttonText, 625+65/2, 280+35/2);
+  if (pointInBox(mouseX, mouseY, 575+65/2, 230+35/2, 65, 35)) { buttonText = prices[2]; }
+  text(buttonText, 575+65/2, 230+35/2);
   
   buttonText = "ACID";
-  if (pointInBox(mouseX, mouseY, 710+65/2, 280+35/2, 65, 35)) { buttonText = prices[3]; }
-  text(buttonText, 710+65/2, 280+35/2);
+  if (pointInBox(mouseX, mouseY, 660+65/2, 230+35/2, 65, 35)) { buttonText = prices[3]; }
+  text(buttonText, 660+65/2, 230+35/2);
   
   //buttonText = "ROTATE";
-  //if (pointInBox(mouseX, mouseY, 625+65/2, 335+35/2, 65, 35)) { buttonText = "25"; }
-  //text(buttonText, 625+65/2, 335+35/2);
+  //if (pointInBox(mouseX, mouseY, 575+65/2, 335+35/2, 65, 35)) { buttonText = "25"; }
+  //text(buttonText, 575+65/2, 335+35/2);
   
   buttonText = "REPAIR";
-  if (pointInBox(mouseX, mouseY, 625+65/2, 335+35/2, 150, 35)) { buttonText = "50"; }
-  text(buttonText, 625+150/2, 335+35/2);
+  if (pointInBox(mouseX, mouseY, 575+65/2, 285+35/2, 150, 35)) { buttonText = "50"; }
+  text(buttonText, 575+150/2, 285+35/2);
   
   buttonText = "REMOVE";
-  if (pointInBox(mouseX, mouseY, 625+150/2, 390+35/2, 150, 35)) { buttonText = "YOU SURE?"; }
+  if (pointInBox(mouseX, mouseY, 575+150/2, 340+35/2, 150, 35)) { buttonText = "YOU SURE?"; }
   fill(255,100,100);
-  text(buttonText, 625+150/2, 390+35/2);
+  text(buttonText, 575+150/2, 340+35/2);
 }
 
 
@@ -519,7 +520,7 @@ function mousePressed() {
     } else {
       
       // CONVEYOR
-      if (pointInBox(mouseX, mouseY, 625+150/2, 225+35/2, 150, 35)) { 
+      if (pointInBox(mouseX, mouseY, 575+150/2, 175+35/2, 150, 35)) { 
         if (money >= prices[0] && grid.selectedY > 0) {
           let rot = 0;
           if (grid.selectedY % 2 == 0) {
@@ -539,7 +540,7 @@ function mousePressed() {
       //}
       
       // FIRE
-      if (pointInBox(mouseX, mouseY, 625+65/2, 280+35/2, 65, 35)) { 
+      if (pointInBox(mouseX, mouseY, 575+65/2, 230+35/2, 65, 35)) { 
         if (money >= prices[2]) {
           grid.grid[grid.selectedY][grid.selectedX] = [2, 0, 100, millis()];
           money -= prices[2];
@@ -547,7 +548,7 @@ function mousePressed() {
       }
       
       // ACID
-      if (pointInBox(mouseX, mouseY, 710+65/2, 280+35/2, 65, 35)) { 
+      if (pointInBox(mouseX, mouseY, 660+65/2, 230+35/2, 65, 35)) { 
         if (money >= prices[3]) {
           grid.grid[grid.selectedY][grid.selectedX] = [3, 0, 100, millis()];
           money -= prices[3];
@@ -555,7 +556,7 @@ function mousePressed() {
       }
       
       // ROTATE
-      //if (pointInBox(mouseX, mouseY, 625+65/2, 335+35/2, 65, 35)) { 
+      //if (pointInBox(mouseX, mouseY, 575+65/2, 335+35/2, 65, 35)) { 
       //  if (money >= 25 && grid.grid[grid.selectedY][grid.selectedX][0] != -1) {
       //    if (grid.grid[grid.selectedY][grid.selectedX][0] == 0) {
       //      grid.grid[grid.selectedY][grid.selectedX][1] = (grid.grid[grid.selectedY][grid.selectedX][1] + 2) % 4;
@@ -567,7 +568,7 @@ function mousePressed() {
       //}
       
       // REPAIR
-      if (pointInBox(mouseX, mouseY, 625+65/2, 335+35/2, 150, 35)) { 
+      if (pointInBox(mouseX, mouseY, 575+65/2, 285+35/2, 150, 35)) { 
         if (money >= 50 && grid.grid[grid.selectedY][grid.selectedX][0] != -1) {
           grid.grid[grid.selectedY][grid.selectedX][2] = 100;
           money -= 50;
@@ -575,7 +576,7 @@ function mousePressed() {
       }
       
       // REMOVE
-      if (pointInBox(mouseX, mouseY, 625+150/2, 390+35/2, 150, 35)) { 
+      if (pointInBox(mouseX, mouseY, 575+150/2, 340+35/2, 150, 35)) { 
         grid.grid[grid.selectedY][grid.selectedX] = [-1, -1, -1, -1];
       }
       
@@ -588,7 +589,7 @@ function mousePressed() {
       grid.selectedY = gridY;
     }
     
-    if (pointInBox(mouseX, mouseY, 700, 50, 100, 50)) {
+    if (pointInBox(mouseX, mouseY, 650, 50, 100, 50)) {
       buildMode = !buildMode;
     }
   }
